@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Lea Keziah Ilagan ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+    body { height: 100vh; overflow: hidden; background-color: #000; display: flex; justify-content: center; align-items: center; }
+
+    /* Slideshow */
+    .slideshow { position: fixed; inset: 0; z-index: -3; }
+    .slide { 
+      position: absolute; inset: 0; 
+      background-size: cover; background-position: center; 
+      opacity: 0; transition: opacity 1.5s ease-in-out; 
+    }
+    .active { opacity: 1; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: -2; }
+
+    /* Card Styling */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 10;
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 { color: #d63384; margin-bottom: 10px; font-size: 1.8rem; }
+    p { color: #333; margin-bottom: 25px; font-size: 1.1rem; }
+
+    /* Buttons */
+    .btn-container { position: relative; height: 50px; }
+    button { padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; position: absolute; transition: 0.2s; }
+    #yesBtn { background: #ff2f68; color: white; left: 10%; }
+    #noBtn { background: #aaa; color: white; right: 10%; }
+    
+    .hidden { display: none; }
+    .heart-float { position: fixed; bottom: -20px; color: red; animation: floatUp 5s linear forwards; z-index: -1; }
+    @keyframes floatUp { to { transform: translateY(-110vh); opacity: 0; } }
+  </style>
+</head>
+<body>
+
+  <audio id="myMusic" loop>
+    <source src="love.mp3.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="slideshow">
+    <div class="slide active" style="background-image: url('1.jpg');"></div>
+    <div class="slide" style="background-image: url('2.jpg');"></div>
+    <div class="slide" style="background-image: url('3.jpg');"></div>
+    <div class="slide" style="background-image: url('4.jpg');"></div>
+    <div class="slide" style="background-image: url('5.jpg');"></div>
+    <div class="slide" style="background-image: url('6.jpg');"></div>
+    <div class="slide" style="background-image: url('7.jpg');"></div>
+    <div class="slide" style="background-image: url('8.jpg');"></div>
+  </div>
+  <div class="overlay"></div>
+
+  <div class="card" id="mainCard">
+    <h1>Lea Keziah Ilagan ❤️</h1>
+    <p>Will you be my Valentine?</p>
+    <div class="btn-container">
+      <button id="yesBtn">YES! 😍</button>
+      <button id="noBtn">No 😢</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="successCard">
+    <h1>Yay! I Love You! 💘</h1>
+    <p>You made me the happiest person today.</p>
+  </div>
+
+  <script>
+    // Slideshow Logic
+    const slides = document.querySelectorAll('.slide');
+    let i = 0;
+    setInterval(() => {
+      slides[i].classList.remove('active');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('active');
+    }, 4000);
+
+    // Interaction & Music
+    const music = document.getElementById('myMusic');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    // Music starts when she clicks "Yes" or anywhere on the page
+    document.addEventListener('click', () => music.play(), { once: true });
+
+    yesBtn.addEventListener('click', () => {
+      document.getElementById('mainCard').classList.add('hidden');
+      document.getElementById('successCard').classList.remove('hidden');
+      setInterval(createHeart, 200);
+    });
+
+    // Make "No" button run away
+    noBtn.addEventListener('mouseover', () => {
+      noBtn.style.top = Math.random() * 150 + 'px';
+      noBtn.style.left = Math.random() * 150 + 'px';
+    });
+
+    function createHeart() {
+      const h = document.createElement('div');
+      h.className = 'heart-float';
+      h.innerHTML = '❤️';
+      h.style.left = Math.random() * 100 + 'vw';
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 5000);
+    }
+  </script>
+</body>
+</html>
